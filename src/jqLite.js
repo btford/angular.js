@@ -155,7 +155,41 @@ function JQLitePatchJQueryRemove(name, dispatchThis, filterElems, getterIfNoArgu
     return originalJqFn.apply(this, arguments);
   }
 }
+function JQLitePatchJQueryData() {
+  (function(){
+    var originalJqFn = jQuery.data;
+    originalJqFn = originalJqFn.$original || originalJqFn;
+    dataPatch.$original = originalJqFn;
+    jQuery.data = dataPatch;
 
+    function dataPatch(a, b, c) {
+      originalJqFn.apply(this, arguments);
+      return JQLiteData(a, b, c);
+    }
+  }());
+  (function(){
+    var originalJqFn = jQuery.removeData;
+    originalJqFn = originalJqFn.$original || originalJqFn;
+    dataPatch.$original = originalJqFn;
+    jQuery.removeData = dataPatch;
+
+    function dataPatch(a, b) {
+      originalJqFn.apply(this, arguments);
+      return JQLiteRemoveData(a, b);
+    }
+  }());
+  (function(){
+    var originalJqFn = jQuery.cleanData;
+    originalJqFn = originalJqFn.$original || originalJqFn;
+    dataPatch.$original = originalJqFn;
+    jQuery.cleanData = dataPatch;
+
+    function dataPatch(a) {
+      forEach(a, JQLiteRemoveData);
+      return originalJqFn.apply(this, arguments);
+    }
+  }());
+}
 /////////////////////////////////////////////
 function JQLite(element) {
   if (element instanceof JQLite) {
