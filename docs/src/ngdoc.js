@@ -1188,6 +1188,7 @@ var GUIDE_PRIORITY = [
   'dev_guide.templates',
 
   'di',
+  'providers',
   'module',
   'scope',
   'expression',
