@@ -3,7 +3,7 @@
 @description
 
 The following is a unit test for the 'notify' service in the 'Dependencies' example in {@link
-dev_guide.services.creating_services Creating Angular Services}. The unit test example uses Jasmine
+services.creating_services Creating Angular Services}. The unit test example uses Jasmine
 spy (mock) instead of a real browser alert.
 
 <pre>
@@ -52,10 +52,10 @@ it('should clear messages after alert', function() {
 
 ## Related Topics
 
-* {@link dev_guide.services.understanding_services Understanding Angular Services}
-* {@link dev_guide.services.creating_services Creating Angular Services}
-* {@link dev_guide.services.managing_dependencies Managing Service Dependencies}
-* {@link dev_guide.services.injecting_controllers Injecting Services Into Controllers}
+* {@link services.understanding_services Understanding Angular Services}
+* {@link services.creating_services Creating Angular Services}
+* {@link services.managing_dependencies Managing Service Dependencies}
+* {@link services.injecting_controllers Injecting Services Into Controllers}
 
 ## Related API
 

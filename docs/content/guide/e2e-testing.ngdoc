@@ -43,7 +43,7 @@ it('should filter results', function() {
 </pre>
 
 Note that
-[`input('user')`](https://github.com/angular/angular.js/blob/master/docs/content/guide/dev_guide.e2e-testing.ngdoc#L119)
+[`input('user')`](https://github.com/angular/angular.js/blob/master/docs/content/guide/e2e-testing.ngdoc#L119)
 finds the `<input>` element with `ng-model="user"` not `name="user"`.
 
 This scenario describes the requirements of a Buzz Client, specifically, that it should be able to

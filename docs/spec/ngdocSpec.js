@@ -114,12 +114,12 @@ describe('ngdoc', function() {
         function property(name) {
           return function(obj) {return obj[name];};
         }
-        var dev_guide_overview = new Doc({ngdoc:'overview', id:'dev_guide.overview', text: ''});
-        var dev_guide_bootstrap = new Doc({ngdoc:'function', id:'dev_guide.bootstrap', text: ''});
+        var dev_guide_overview = new Doc({ngdoc:'overview', id:'overview', text: ''});
+        var dev_guide_bootstrap = new Doc({ngdoc:'function', id:'bootstrap', text: ''});
 
-        it('should put angular.fn() in front of dev_guide.overview, etc', function() {
+        it('should put angular.fn() in front of overview, etc', function() {
           expect(ngdoc.metadata([dev_guide_overview, dev_guide_bootstrap]).map(property('id')))
-            .toEqual(['dev_guide.overview', 'dev_guide.bootstrap']);
+            .toEqual(['overview', 'bootstrap']);
         });
       });
     });

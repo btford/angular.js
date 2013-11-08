@@ -102,10 +102,10 @@ that the injector uses to determine which services and in which order to inject.
 
 ## Related Topics
 
-* {@link dev_guide.services.understanding_services Understanding Angular Services}
-* {@link dev_guide.services.creating_services Creating Angular Services}
-* {@link dev_guide.services.injecting_controllers Injecting Services Into Controllers }
-* {@link dev_guide.services.testing_services Testing Angular Services}
+* {@link services.understanding_services Understanding Angular Services}
+* {@link services.creating_services Creating Angular Services}
+* {@link services.injecting_controllers Injecting Services Into Controllers }
+* {@link services.testing_services Testing Angular Services}
 
 
 ## Related API

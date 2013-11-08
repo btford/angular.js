@@ -62,7 +62,7 @@ In Angular applications, you move the job of filling page templates with data fr
 
 ### Testing
 
-* **Unit testing:** [Using Karma (video)](http://www.youtube.com/watch?v=YG5DEzaQBIc), {@link guide/dev_guide.unit-testing Unit testing}, {@link guide/dev_guide.services.testing_services Testing services}, [Karma in Webstorm](http://blog.jetbrains.com/webstorm/2013/10/running-javascript-tests-with-karma-in-webstorm-7/)
+* **Unit testing:** [Using Karma (video)](http://www.youtube.com/watch?v=YG5DEzaQBIc), {@link guide/unit-testing Unit testing}, {@link guide/services.testing_services Testing services}, [Karma in Webstorm](http://blog.jetbrains.com/webstorm/2013/10/running-javascript-tests-with-karma-in-webstorm-7/)
 
 * **Scenario testing:** [Protractor](https://github.com/angular/protractor)
 
@@ -102,7 +102,7 @@ This is a short list of libraries with specific support and documentation for wo
 
 ## Deployment
 
-### General 
+### General
 
 * **Javascript minification: **[Background](http://thegreenpizza.github.io/2013/05/25/building-minification-safe-angular.js-applications/), [ngmin automation tool](http://www.thinkster.io/pick/XlWneEZCqY/angularjs-ngmin)
 
@@ -120,7 +120,7 @@ This is a short list of libraries with specific support and documentation for wo
 
 * **Hood.ie:** [60 Minutes to Awesome](http://www.roberthorvick.com/2013/06/30/todomvc-angularjs-hood-ie-60-minutes-to-awesome/)
 
-* **MEAN Stack: **[Blog post](http://blog.mongodb.org/post/49262866911/the-mean-stack-mongodb-expressjs-angularjs-and), [Setup](http://thecodebarbarian.wordpress.com/2013/07/22/introduction-to-the-mean-stack-part-one-setting-up-your-tools/), [GDL Video](https://developers.google.com/live/shows/913996610) 
+* **MEAN Stack: **[Blog post](http://blog.mongodb.org/post/49262866911/the-mean-stack-mongodb-expressjs-angularjs-and), [Setup](http://thecodebarbarian.wordpress.com/2013/07/22/introduction-to-the-mean-stack-part-one-setting-up-your-tools/), [GDL Video](https://developers.google.com/live/shows/913996610)
 
 * **Rails: **[Tutorial](http://coderberry.me/blog/2013/04/22/angularjs-on-rails-4-part-1/), [AngularJS with Rails4](https://shellycloud.com/blog/2013/10/how-to-integrate-angularjs-with-rails-4), [angularjs-rails](https://github.com/hiravgandhi/angularjs-rails)
 
