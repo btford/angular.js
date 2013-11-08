@@ -1173,13 +1173,8 @@ var GUIDE_PRIORITY = [
   'mvc.understanding_model',
   'mvc.understanding_view',
 
-  'services.understanding_services',
-  'services.managing_dependencies',
-  'services.creating_services',
-  'services.injecting_controllers',
-  'services.testing_services',
-  'services.$location',
   'services',
+  'services.$location',
 
   'databinding',
   'templates.css-styling',
