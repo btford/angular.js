@@ -1124,6 +1124,24 @@ describe('jqLite', function() {
       expect(extraSpy).toHaveBeenCalledOnce();
     });
 
+
+    it('should call removeEventListener', function() {
+      var aElem = jqLite(a),
+          removeSpy = jasmine.createSpy('removeEventListener'),
+          spy = jasmine.createSpy('someSpy');
+
+      if (window.document.removeEventListener) {
+        aElem[0].removeEventListener = removeSpy;
+      } else {
+        aElem[0].detachEvent = removeSpy;
+      }
+
+      aElem.on('click', spy);
+      aElem.off('click', spy);
+
+      expect(removeSpy).toHaveBeenCalledOnce();
+    });
+
     // Only run this test for jqLite and not normal jQuery
     if ( _jqLiteMode ) {
       it('should throw an error if a selector is passed', function () {

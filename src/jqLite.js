@@ -223,8 +223,12 @@ function jqLiteOff(element, type, fn, unsupported) {
       if (isUndefined(fn)) {
         removeEventListenerFn(element, type, events[type]);
         delete events[type];
-      } else {
-        arrayRemove(events[type] || [], fn);
+      } else if (events[type]) {
+        arrayRemove(events[type], fn);
+        if (events[type].length === 0) {
+          removeEventListenerFn(element, type, handle);
+          delete events[type];
+        }
       }
     });
   }
