@@ -12,6 +12,7 @@ var shell = require('shelljs');
 var gruntUtil = require('../../lib/grunt/utils.js');
 var errorsJson;
 var marked = require('marked');
+var semver = require('semver');
 marked.setOptions({
   gfm: true,
   tables: true
@@ -92,8 +93,8 @@ exports.ngVersions = function() {
         NON_RC_RELEASE_NUMBER = 999;
     for(var i = versions.length - 1; i >= 0; i--) {
       var version = versions[i];
-      var split = version.split(/\.|rc/);
-       var baseVersion = split[0] + '.' + split[1] + '.' + split[2];
+      var split = version.split(/\.|rc|-/);
+      var baseVersion = split[0] + '.' + split[1] + '.' + split[2];
 
       //create a map of RC versions for each version
       //this way each RC version can be sorted in "natural" order
@@ -102,14 +103,14 @@ exports.ngVersions = function() {
       //NON_RC_RELEASE_NUMBER is used to signal the non-RC version for the release and
       //it will always appear at the top of the list since the number is so high!
       versionMap[baseVersion].push(
-        version == baseVersion ? NON_RC_RELEASE_NUMBER : parseInt(version.match(/rc\.?(\d+)/)[1]));
+        version == baseVersion ? NON_RC_RELEASE_NUMBER : parseInt(version.match(/rc\.?(\d+)/)[1]), 10);
     };
 
     //flatten the map so that the RC versions occur in a natural sorted order
     //and the official non-RC version shows up at the top of the list of sorted
     //RC versions!
     var angularVersions = [];
-    sortedKeys(versionMap).forEach(function(key) {
+    semver.sort(Object.keys(versionMap)).forEach(function(key) {
       var versions = versionMap[key];
 
       //basic numerical sort
@@ -123,15 +124,6 @@ exports.ngVersions = function() {
     });
 
     return angularVersions;
-  };
-
-  function sortedKeys(obj) {
-    var keys = [];
-    for(var key in obj) {
-      keys.push(key);
-    };
-    keys.sort(true);
-    return keys;
   };
 };
 
