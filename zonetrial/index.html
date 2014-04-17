@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="myApp">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <title>My AngularJS App</title>
@@ -12,12 +12,22 @@
 
   <div ng-view></div>
 
-  <script src="zone.js"></script>
+  <script src="node_modules/zone.js/zone.js"></script>
+  <script src="node_modules/zone.js/counting-zone.js"></script>
   <script src="../build/angular.js"></script>
   <script src="../build/angular-route.js"></script>
 
   <script src="async/async.js"></script>
   <script src="app.js"></script>
-
+  <script>
+  zone.fork(Zone.countingZone).
+    fork({
+      onFlush: function () {
+        console.log('flushed');
+      }
+    }).run(function () {
+      angular.bootstrap(document, ['myApp']);
+    });
+  </script>
 </body>
 </html>
