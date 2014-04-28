@@ -204,7 +204,7 @@ describe('ngSrcset', function() {
     var element = $compile('<div ng-srcset="some/{{id}} 2x"></div>')($rootScope);
 
     $rootScope.$digest();
-    expect(element.attr('srcset')).toEqual('some/ 2x');
+    expect(element.attr('srcset')).toEqual();
 
     $rootScope.$apply(function() {
       $rootScope.id = 1;
@@ -227,7 +227,7 @@ describe('ngHref', function() {
   it('should interpolate the expression and bind to href', inject(function($compile, $rootScope) {
     element = $compile('<div ng-href="some/{{id}}"></div>')($rootScope);
     $rootScope.$digest();
-    expect(element.attr('href')).toEqual('some/');
+    expect(element.attr('href')).toEqual();
 
     $rootScope.$apply(function() {
       $rootScope.id = 1;
@@ -258,7 +258,7 @@ describe('ngHref', function() {
         element = $compile('<svg><a ng-href="some/{{id}}"></a></svg>')($rootScope);
         var child = element.children('a');
         $rootScope.$digest();
-        expect(child.attr('xlink:href')).toEqual('some/');
+        expect(child.attr('xlink:href')).toEqual();
 
         $rootScope.$apply(function() {
           $rootScope.id = 1;

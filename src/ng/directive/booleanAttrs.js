@@ -365,7 +365,7 @@ forEach(BOOLEAN_ATTR, function(propName, attrName) {
 // ng-src, ng-srcset, ng-href are interpolated
 forEach(['src', 'srcset', 'href'], function(attrName) {
   var normalized = directiveNormalize('ng-' + attrName);
-  ngAttributeAliasDirectives[normalized] = function() {
+  ngAttributeAliasDirectives[normalized] = ['$interpolate', function($interpolate) {
     return {
       priority: 99, // it needs to run after the attributes are interpolated
       link: function(scope, element, attr) {
@@ -379,9 +379,13 @@ forEach(['src', 'srcset', 'href'], function(attrName) {
           propName = null;
         }
 
-        attr.$observe(normalized, function(value) {
-          if (!value)
-             return;
+        var iterpolateFn = $interpolate(element.attr(attr.$attr[normalized]));
+
+        scope.$watchGroup(iterpolateFn.expressions, function (values) {
+          var value = iterpolateFn(scope, true);
+          if (isUndefined(value)) {
+            return;
+          }
 
           attr.$set(name, value);
 
@@ -393,5 +397,5 @@ forEach(['src', 'srcset', 'href'], function(attrName) {
         });
       }
     };
-  };
+  }];
 });
