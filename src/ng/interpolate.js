@@ -182,23 +182,29 @@ function $InterpolateProvider() {
           return concat.join('');
         };
 
-        var stringify = function (value) {
+        var getValue = function (value) {
           if (trustedContext) {
             value = $sce.getTrusted(trustedContext, value);
           } else {
             value = $sce.valueOf(value);
           }
 
-          if (value === null || isUndefined(value)) {
+          return value;
+        };
+
+        var stringify = function (value) {
+          if (isUndefined(value) || value === null) {
             value = '';
-          } else if (typeof value != 'string') {
+          }
+          if (typeof value != 'string') {
             value = toJson(value);
           }
 
           return value;
         };
 
-        return extend(function interpolationFn(context) {
+        return extend(function interpolationFn(context, strict) {
+            strict = !!strict;
             var scopeId = context.$id || 'notAScope';
             var lastValues = lastValuesCache.values[scopeId];
             var lastResult = lastValuesCache.results[scopeId];
@@ -225,7 +231,11 @@ function $InterpolateProvider() {
 
             try {
               for (; i < ii; i++) {
-                val = stringify(parseFns[i](context));
+                val = getValue(parseFns[i](context));
+                if (strict && isUndefined(val)) {
+                  return;
+                }
+                val = stringify(val);
                 if (val !== lastValues[i]) {
                   inputsChanged = true;
                 }
