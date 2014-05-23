@@ -232,7 +232,10 @@ module.exports = function(grunt) {
     "ddescribe-iit": {
       files: [
         'test/**/*.js',
-        '!test/ngScenario/DescribeSpec.js'
+        '!test/ngScenario/DescribeSpec.js',
+        'src/**/*.js',
+        '!src/ngScenario/Runner.js',
+        '!src/ng/directive/booleanAttrs.js'
       ]
     },
 
