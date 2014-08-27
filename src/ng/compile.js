@@ -685,6 +685,10 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    * * `ng-binding` CSS class
    * * `$binding` data object containing the value of the binding (or an array if there are multiple
    *   bindings)
+   *
+   * You may want to use this in production for a significant performance boost. See
+   * {@link guide/production#disabling-debug-data Disabling Debug Data} for more.
+   *
    */
   var enableDebugInfo = false;
   this.enableDebugInfo = function(enabled) {
