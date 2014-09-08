@@ -723,8 +723,21 @@ describe('parser', function() {
             }).toThrowMinErr(
                     '$parse', 'isecfn', 'Referencing Function in Angular expressions is disallowed! ' +
                     'Expression: a.toString.constructor = 1');
+
+            expect(function() {
+              scope.$eval('toString.constructor.prototype.toString = 1');
+            }).toThrowMinErr(
+                    '$parse', 'isecfn', 'Referencing Function in Angular expressions is disallowed! ' +
+                    'Expression: toString.constructor.prototype.toString = 1');
           });
 
+          it('should prevent exploits that overload toString', function() {
+            expect(function() {
+              scope.$eval('' +
+                'toString.constructor.prototype.toString=toString.constructor.prototype.call;' +
+                '["a","alert(1)"].sort(toString.constructor)');
+            }).toThrow();
+          });
 
           it('should NOT allow access to Function constructor that has been aliased', function() {
             scope.foo = { "bar": Function };

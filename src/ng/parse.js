@@ -38,7 +38,8 @@ function ensureSafeMemberName(name, fullExpression) {
 function ensureSafeObject(obj, fullExpression) {
   // nifty check if obj is Function that is fast and works across iframes and other contexts
   if (obj) {
-    if (obj.constructor === obj) {
+    if (obj.constructor && (obj.constructor === obj ||
+        obj.constructor.prototype === obj)) {
       throw $parseMinErr('isecfn',
           'Referencing Function in Angular expressions is disallowed! Expression: {0}',
           fullExpression);
