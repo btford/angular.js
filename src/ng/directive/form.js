@@ -71,6 +71,17 @@ function FormController(element, attrs, $scope, $animate, $interpolate) {
   form.$invalid = false;
   form.$submitted = false;
 
+  // Setup initial state of the control
+  element.addClass(PRISTINE_CLASS);
+
+  this.$$setParentForm = function(form) {
+    parentForm = form;
+  };
+
+  this.$$getParentForm = function(form) {
+    return parentForm;
+  };
+
   parentForm.$addControl(form);
 
   /**
@@ -125,6 +136,7 @@ function FormController(element, attrs, $scope, $animate, $interpolate) {
     if (control.$name) {
       form[control.$name] = control;
     }
+    control.$$setParentForm(form);
   };
 
   // Private API: rename a form control
@@ -159,6 +171,7 @@ function FormController(element, attrs, $scope, $animate, $interpolate) {
     });
 
     arrayRemove(controls, control);
+    control.$$setParentForm(nullFormCtrl);
   };
 
 

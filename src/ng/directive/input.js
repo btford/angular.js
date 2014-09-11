@@ -1726,6 +1726,14 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
     }
   };
 
+  this.$$setParentForm = function(form) {
+    parentForm = form;
+  };
+
+  this.$$getParentForm = function(form) {
+    return parentForm;
+  };
+
   /**
    * @ngdoc method
    * @name ngModel.NgModelController#$render
@@ -1800,7 +1808,6 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
     unset: function(object, property) {
       delete object[property];
     },
-    parentForm: parentForm,
     $animate: $animate
   });
 
@@ -2411,12 +2418,12 @@ var ngModelDirective = function() {
 
           attr.$observe('name', function(newValue) {
             if (modelCtrl.$name !== newValue) {
-              formCtrl.$$renameControl(modelCtrl, newValue);
+              modelCtrl.$$getParentForm().$$renameControl(modelCtrl, newValue);
             }
           });
 
           scope.$on('$destroy', function() {
-            formCtrl.$removeControl(modelCtrl);
+            modelCtrl.$$getParentForm().$removeControl(modelCtrl);
           });
         },
         post: function ngModelPostLink(scope, element, attr, ctrls) {
@@ -2987,7 +2994,6 @@ function addSetValidityMethod(context) {
       classCache = {},
       set = context.set,
       unset = context.unset,
-      parentForm = context.parentForm,
       $animate = context.$animate;
 
   classCache[INVALID_CLASS] = !(classCache[VALID_CLASS] = $element.hasClass(VALID_CLASS));
@@ -3038,7 +3044,7 @@ function addSetValidityMethod(context) {
       combinedState = null;
     }
     toggleValidationCss(validationErrorKey, combinedState);
-    parentForm.$setValidity(validationErrorKey, combinedState, ctrl);
+    ctrl.$$getParentForm().$setValidity(validationErrorKey, combinedState, ctrl);
   }
 
   function createAndSet(name, value, options) {

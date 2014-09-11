@@ -58,6 +58,50 @@ describe('form', function() {
     expect(form.alias).toBeUndefined();
   });
 
+  it('should not be affected by input controls that were removed from the form', function() {
+    doc = $compile(
+      '<form name="myForm">' +
+        '<input ng-if="inputExists" name="alias" ng-model="value" store-model-ctrl/>' +
+      '</form>')(scope);
+
+    scope.$apply('inputExists = true');
+    control.$setValidity('required', false);
+    scope.$apply('inputExists = false');
+
+    var form = scope.myForm;
+    expect(form.$error.required).toBeFalsy();
+  });
+
+  it('should not be affected by form controls that were removed from the form', function() {
+    doc = $compile(
+      '<form name="myForm">' +
+        '<div ng-form="nestedForm" ng-if="formExists">' +
+          '<input type="text" name="alias" ng-model="value" store-model-ctrl/>' +
+        '</div>' +
+      '</form>')(scope);
+
+    scope.$apply('formExists = true');
+    control.$setValidity('required', false);
+    scope.$apply('formExists = false');
+
+    var form = scope.myForm;
+    expect(form.$error.required).toBeFalsy();
+  });
+
+  it('should be affected by input controls that were re-added to the form', function() {
+    doc = $compile(
+      '<form name="myForm">' +
+        '<input ng-if="inputExists" name="alias" ng-model="value" store-model-ctrl/>' +
+      '</form>')(scope);
+
+    scope.$apply('inputExists = true');
+    scope.$apply('inputExists = false');
+    scope.$apply('inputExists = true');
+    control.$setValidity('required', false);
+
+    var form = scope.myForm;
+    expect(form.$error.required).toEqual([control]);
+  });
 
   it('should use ngForm value as form name', function() {
     doc = $compile(
