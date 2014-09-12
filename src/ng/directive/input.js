@@ -22,6 +22,12 @@ var DEFAULT_REGEXP = /(\s+|^)default(\s+|$)/;
 
 var $ngModelMinErr = new minErr('ngModel');
 
+var validityStateMap = {
+  $pending: undefined,
+  $error: false,
+  $$success: true
+};
+
 var inputType = {
 
   /**
@@ -1728,6 +1734,9 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
 
   this.$$setParentForm = function(form) {
     parentForm = form;
+    if (parentForm !== nullFormCtrl) {
+      ctrl.$$reportValidity(parentForm);
+    }
   };
 
   this.$$getParentForm = function(form) {
@@ -3046,6 +3055,14 @@ function addSetValidityMethod(context) {
     toggleValidationCss(validationErrorKey, combinedState);
     ctrl.$$getParentForm().$setValidity(validationErrorKey, combinedState, ctrl);
   }
+
+  ctrl.$$reportValidity = function reportValidity(parentForm) {
+    forEach(validityStateMap, function(combinedState, key) {
+      forEach(ctrl[key], function(value, validationErrorKey) {
+        parentForm.$setValidity(validationErrorKey, combinedState, ctrl);
+      });
+    });
+  };
 
   function createAndSet(name, value, options) {
     if (!ctrl[name]) {
